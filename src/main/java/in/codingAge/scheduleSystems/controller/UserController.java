@@ -27,7 +27,6 @@ public class UserController {
     public ApiResponse<LoginResponse> signIn(@RequestParam String phoneNumber, String password) {
         return new ApiResponse<>(userService.singIn(phoneNumber,password),HttpStatus.ACCEPTED);
     }
-
     @GetMapping("/all/by/role")
     public List<User> getUsersByRole(@RequestParam String userRole){
         return userService.getUsersByRole(userRole);
