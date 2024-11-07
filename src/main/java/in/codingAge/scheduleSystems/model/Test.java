@@ -16,6 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Test {
+    // todo no need of this model because a Test is also a event
     @Id
     private String testId;
 
@@ -26,6 +27,5 @@ public class Test {
     private String testDescription;
     private Date testDate;
     private Time testTime;
-
 
 }

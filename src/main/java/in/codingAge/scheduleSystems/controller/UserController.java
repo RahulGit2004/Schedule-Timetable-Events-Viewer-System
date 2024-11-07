@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
@@ -31,6 +32,13 @@ public class UserController {
     public List<User> getUsersByRole(@RequestParam String userRole){
         return userService.getUsersByRole(userRole);
     }
+    // it gives filter data which students is not assigned in Batch {name of this method is not proper}
+    @GetMapping("/all/students")
+    public List<User> getAllStudents() {
+        return userService.getAllStudents();
+    }
+
+
 
 
 }

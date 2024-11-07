@@ -7,8 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Document(collection = "events")
 @Getter
@@ -18,12 +17,17 @@ import java.util.Date;
 public class Event {
     @Id
     private String eventId;
+    private String creatorId;
     private String batchId;
     private String eventName;
     private String eventOrganizer;
-    private Date eventDate;
-    private Time eventStartTime;
-    private Time eventEndTime;
     private String eventDescription;
+    private String location;
+    private String status;
+    private boolean isActive;
+    private LocalDateTime eventDate;
+    private LocalDateTime eventStartTime;
+    private LocalDateTime eventEndTime;
+
 
 }

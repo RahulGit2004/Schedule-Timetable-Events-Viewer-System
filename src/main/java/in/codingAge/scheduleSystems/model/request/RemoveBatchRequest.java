@@ -3,14 +3,12 @@ package in.codingAge.scheduleSystems.model.request;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
-public class BatchRequest {
-
-    private String batchName;
+public class RemoveBatchRequest {
+    private String batchId;
     private String creatorId;
-    private String creatorName;
-    private Date createdDate;
+    private List<String> studentsId;
 }

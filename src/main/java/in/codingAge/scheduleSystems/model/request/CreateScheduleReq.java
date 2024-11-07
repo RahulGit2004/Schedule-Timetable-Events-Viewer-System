@@ -1,25 +1,18 @@
-package in.codingAge.scheduleSystems.model;
+package in.codingAge.scheduleSystems.model.request;
 
-import jdk.jfr.EventType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-//todo not in use
-@Document(collection = "schedules")
+import java.util.Date;
+
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Schedule {
-    @Id
-    private String scheduleId;
+public class CreateScheduleReq {
 
     private String batchId;
     private String creatorId;
@@ -31,7 +24,4 @@ public class Schedule {
     private LocalDate date;
     private LocalTime time;
     private Duration duration;
-
-
-
 }

@@ -20,4 +20,6 @@ public interface UserService {
     User saveUpdates(User user);
 
     List<User> getUsersByRole(String userRole);
+
+    List<User> getAllStudents();
 }

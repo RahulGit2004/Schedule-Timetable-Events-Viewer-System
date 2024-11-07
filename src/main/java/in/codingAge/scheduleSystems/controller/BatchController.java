@@ -4,8 +4,9 @@ import in.codingAge.scheduleSystems.base.ApiResponse;
 import in.codingAge.scheduleSystems.model.Batch;
 import in.codingAge.scheduleSystems.model.request.AssignRequest;
 import in.codingAge.scheduleSystems.model.request.BatchRequest;
+import in.codingAge.scheduleSystems.model.request.RemoveBatchRequest;
+import in.codingAge.scheduleSystems.model.request.UpdateBatchReq;
 import in.codingAge.scheduleSystems.service.BatchService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/batch")
+@CrossOrigin("*")
 public class BatchController {
 
+    // todo make frontend to remove students from batch;
     @Autowired
     private BatchService batchService;
 
@@ -29,9 +32,24 @@ public class BatchController {
         return new ApiResponse<>(batchService.assignStudentsInBatch(assignRequest),HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/remove/students")
+    public ApiResponse<Boolean> removeStudentsFromBatch(@RequestBody RemoveBatchRequest batchRequest) {
+        return new ApiResponse<>(batchService.removeStudentsFromBatch(batchRequest),HttpStatus.ACCEPTED);
+    }
+
+
+
+// todo update batch api needed
+    @PutMapping("/update")
+    public ApiResponse<Boolean> updateBatch(@RequestBody UpdateBatchReq updateBatchReq) {
+        return new ApiResponse<>(batchService.updateBatch(updateBatchReq),HttpStatus.ACCEPTED);
+    }
+
+
     @GetMapping("/all/list")
     public List<Batch> getAllBatches() {
         return batchService.getAllBatches();
     }
+
 
 }

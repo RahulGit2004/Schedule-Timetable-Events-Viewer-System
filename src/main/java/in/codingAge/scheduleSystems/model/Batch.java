@@ -19,16 +19,22 @@ public class Batch {
 
     @Id
     private String batchId;
+    private String creatorId;
     private String batchName;
     private String creatorName;
     private Date createdDate;
     private boolean isActive;
 
-    // storing list of student in this batch
-    private List<User> studentList;
-    // for getting batch specific events
+    // List of students & one admin in this batch
+    private List<User> users;
+
+    // List of events specific to this batch
+    private List<Event> events;
+
+    // List of schedules specific to this batch
     private List<Schedule> schedules;
-    // for each batch have specific time and table
+
+    // Specific timetables for this batch
     private List<TimeTable> timeTables;
 
 }

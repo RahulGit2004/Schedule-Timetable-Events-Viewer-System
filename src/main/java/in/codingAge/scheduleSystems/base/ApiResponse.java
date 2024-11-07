@@ -10,7 +10,7 @@ public class ApiResponse<T> {
 
     private T data;
     private HttpStatus status;
-    private String errorMessage;
+    private String errorMessage="";
 
     public ApiResponse(HttpStatus status, String errorMessage){
         this.status = status;

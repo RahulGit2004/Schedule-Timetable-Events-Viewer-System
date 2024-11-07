@@ -9,6 +9,7 @@ import in.codingAge.scheduleSystems.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -75,6 +76,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersByRole(String userRole) {
         return userRepository.findAllByUserRole(userRole);
+    }
+
+    @Override
+    public List<User> getAllStudents() {
+        List<User> students = getUsersByRole("student");
+        List<User> studentList = new ArrayList<>();
+        for (User student: students) {
+            if(!student.isInBatch()){
+                studentList.add(student);
+            }
+        }
+        return studentList;
     }
 
 
