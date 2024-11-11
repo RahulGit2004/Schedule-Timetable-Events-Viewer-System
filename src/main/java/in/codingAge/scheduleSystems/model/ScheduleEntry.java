@@ -9,26 +9,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 
-@Document(collection = "events")
+@Document(collection = "schedule_entries")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
+public class ScheduleEntry {
     @Id
-    private String eventId;
-    private String creatorId;
-    private String batchId;
-    private String title;
-    private String organizer;
-    private String description;
+    private String scheduleEntryId;
+    private String timetableId;
+    private String className;
+    private String instructor;
     private String location;
+    private Time startTime;
     private String eventType;
-    private Date Date;
-    private Time Time;
-    private Boolean notifyStudents;
-
-
+    private Long duration;
 }

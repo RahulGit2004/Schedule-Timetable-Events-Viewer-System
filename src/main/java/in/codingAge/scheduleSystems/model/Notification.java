@@ -7,8 +7,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Time;
-
 @Document(collection = "notifications")
 @Getter
 @Setter
@@ -19,10 +17,11 @@ public class Notification {
 
     @Id
     private String notificationId;
-    private String eventId;
-    private String batchId;
+    private String userId;
     private String message;
-    private boolean isRead;
-    private Time notificationTime;
+    private String createdAt;
+    private Boolean readNotification;
+
+
 
 }

@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -38,13 +40,11 @@ public class EventServiceImpl implements EventService {
             throw new AppException("Invalid Batch");
         } else {
             User admin = userService.getUserByUserId(eventRequest.getCreatorId());
-            if (admin.getUserRole().equalsIgnoreCase("student")) {
+            if (admin == null || admin.getUserRole().equalsIgnoreCase("student")) {
                 throw new AppException("You are not authorize");
             } else {
                 Event event = getEvent(eventRequest);
                 eventRepository.save(event);
-                batch.getEvents().add(event);
-                batchService.saveUpdates(batch, admin.getUserId());
                 return true;
             }
         }
@@ -53,64 +53,45 @@ public class EventServiceImpl implements EventService {
     private static Event getEvent(EventRequest eventRequest) {
         Event event = new Event();
         event.setBatchId(event.getBatchId());
-        event.setEventDate(eventRequest.getEventDate());
-        event.setEventStartTime(eventRequest.getEventStartTime());
-        event.setEventEndTime(eventRequest.getEventEndTime());
-        event.setEventDescription(event.getEventDescription());
+        event.setEventType(event.getEventType());
+        event.setCreatorId(event.getCreatorId());
+        event.setDate(eventRequest.getDate());
+        event.setTime(eventRequest.getTime());
+        event.setDescription(event.getDescription());
         event.setLocation(event.getLocation());
-        event.setStatus(event.getStatus());
-        event.setEventName(event.getEventName());
-        event.setEventOrganizer(event.getEventOrganizer());
-        event.setActive(true);
+        event.setTitle(event.getTitle());
+        event.setOrganizer(event.getOrganizer());
+        event.setNotifyStudents(true);
         return event;
-    }
-
-    @Override
-    @Scheduled(fixedRate = 3600000)
-    public void updateEventStatus() {
-        List<Event> activeEvents = eventRepository.findByIsActiveTrue(); // Fetch all active events
-        LocalDateTime now = LocalDateTime.now(); // Current time
-        for (Event event : activeEvents) {
-            LocalDateTime eventEndTime = event.getEventEndTime();
-            // Check if the event end time has passed
-            if (eventEndTime.isBefore(now)) {
-                event.setActive(false);
-                eventRepository.save(event);
-            }
-        }
     }
 
     @Override
     public List<Event> getAllUpcomingEvents(String studentId) {
         User student = userService.getUserByUserId(studentId);
-        if (student == null || student.getUserRole().equalsIgnoreCase("admin")) {
+        if (student == null) {
             throw new AppException("Invalid Student");
-        } else {
-            String batchId = batchService.getBatchIdByStudentId(studentId);
-            if (batchId == null) {
-                throw new AppException("Batch ID cannot be null");
-            } else {
-
-                // Check the batch by batchId
-                Batch batch = batchService.getBatchByBatchId(batchId);
-                if (batch == null) {
-                    throw new AppException("Batch not found for the provided batch ID");
-                }
-
-                LocalDate today = LocalDate.now();
-                List<Event> upcomingEvents = new ArrayList<>();
-                for (Event event : batch.getEvents()) {
-                    LocalDate eventDate = event.getEventDate().toLocalDate();
-                    // Check if the event date is today or in the future
-                    if (eventDate.isAfter(today) || eventDate.isEqual(today)) {
-                        upcomingEvents.add(event);
-                    }
-                }
-                return upcomingEvents;
-            }
         }
-    }
+        String batchId = batchService.getBatchIdByStudentId(studentId);
+        if (batchId == null) {
+            throw new AppException("Batch ID cannot be null");
+        }
 
+        // Check the batch by batchId
+        Batch batch = batchService.getBatchByBatchId(batchId);
+        if (batch == null) {
+            throw new AppException("Batch not found for the provided batch ID");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+
+        List<Event> upcomingEvents = eventRepository.findAllByBatchIdAndDateAfter(batchId, now);
+
+        if (upcomingEvents.isEmpty()) {
+            throw new AppException("No Events");
+        }
+
+        return upcomingEvents;
+    }
     @Override
     public Boolean updateEventDetails(UpdateEventReq eventReq) {
         // finding corect id or valid admin
@@ -128,12 +109,13 @@ public class EventServiceImpl implements EventService {
                 if (event == null) {
                     throw new AppException("Invalid Event");
                 } else {
-                    event.setEventDate(eventReq.getEventDate());
-                    event.setEventName(event.getEventName());
-                    event.setEventDescription(event.getEventDescription());
-                    event.setEventStartTime(event.getEventStartTime());
-                    eventReq.setEventEndTime(event.getEventEndTime());
-                    event.setEventOrganizer(event.getEventOrganizer());
+                    event.setDate(eventReq.getDate());
+                    event.setTitle(eventReq.getTitle());
+                    event.setDescription(eventReq.getDescription());
+                    event.setLocation(eventReq.getLocation());
+                    event.setEventType(eventReq.getEventType());
+                    event.setTime(eventReq.getTime());
+                    event.setOrganizer(eventReq.getOrganizer());
                     eventRepository.save(event);
                     return true;
                 }
@@ -142,33 +124,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllUpcomingTest(String studentId) {
-        User student = userService.getUserByUserId(studentId);
-        if (student == null || student.getUserRole().equalsIgnoreCase("admin")) {
-            throw new AppException("Invalid Student");
+    public List<Event> getEventsByBatchId(String batchId) {
+        Batch batch = batchService.getBatchByBatchId(batchId);
+        if (batch == null) {
+            throw new AppException("Invalid Batch");
         } else {
-            String batchId = batchService.getBatchIdByStudentId(studentId);
-            if (batchId == null) {
-                throw new AppException("Batch ID cannot be null");
-            }
-            else {
-                // Check the batch by batchId
-                Batch batch = batchService.getBatchByBatchId(batchId);
-                if (batch == null) {
-                    throw new AppException("Batch not found for the provided batch ID");
-                }
-
-                LocalDate today = LocalDate.now();
-                List<Event> upcomingTests = new ArrayList<>();
-                for (Event event : batch.getEvents()) {
-                    LocalDate testDate = event.getEventDate().toLocalDate();
-                    // Check if the event date is today or in the future
-                    if (testDate.isAfter(today) || testDate.isEqual(today)) {
-                        upcomingTests.add(event);
-                    }
-                }
-                return upcomingTests;
-            }
+            return eventRepository.findAllByBatchId(batchId);
         }
     }
 }

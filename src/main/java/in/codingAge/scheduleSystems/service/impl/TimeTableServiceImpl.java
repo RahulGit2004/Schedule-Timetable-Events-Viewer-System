@@ -1,23 +1,20 @@
 package in.codingAge.scheduleSystems.service.impl;
 
 import in.codingAge.scheduleSystems.exception.AppException;
-import in.codingAge.scheduleSystems.model.Batch;
-import in.codingAge.scheduleSystems.model.TimeTable;
-import in.codingAge.scheduleSystems.model.User;
+import in.codingAge.scheduleSystems.model.*;
+import in.codingAge.scheduleSystems.model.request.ScheduleEntryReq;
 import in.codingAge.scheduleSystems.model.request.TimeTableRequest;
 import in.codingAge.scheduleSystems.model.request.UpdateTimeTableReq;
-import in.codingAge.scheduleSystems.model.request.schedule.DaySchedule;
-import in.codingAge.scheduleSystems.model.request.schedule.ScheduleTimeTableRequest;
-import in.codingAge.scheduleSystems.model.request.schedule.Slot;
-import in.codingAge.scheduleSystems.model.response.ScheduledTimeTableResponse;
 import in.codingAge.scheduleSystems.repository.TimeTableRepository;
 import in.codingAge.scheduleSystems.service.BatchService;
+import in.codingAge.scheduleSystems.service.ScheduleEntryService;
 import in.codingAge.scheduleSystems.service.TimeTableService;
 import in.codingAge.scheduleSystems.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,125 +27,124 @@ public class TimeTableServiceImpl implements TimeTableService {
     private BatchService batchService;
 
     @Autowired
+    @Lazy
+    private ScheduleEntryService scheduleEntryService;
+
+    @Autowired
     private UserService userService;
 
 
     @Override
-    public Boolean createTimeTable(TimeTableRequest timeTableRequest) {
-        // checking duplicate timetable
-        boolean isFound = false;
-        for (TimeTable timeTable : getAllTimeTables()) {
-            if (timeTable.getStartTime().equals(timeTableRequest.getStartTime())) {
-                isFound = true;
-                break;
-            }
-        }
-        if (isFound) {
-            throw new AppException("This time is Already Registered");
-        } else {
-            User admin = userService.getUserByUserId(timeTableRequest.getCreatorId());
-            if (admin == null) {
-                throw new AppException("Invalid admin");
-            }
-            TimeTable timeTable = new TimeTable();
-            timeTable.setBatchId(timeTableRequest.getBatchId());
-            timeTable.setCreatorId(timeTableRequest.getCreatorId());
-            timeTable.setInstructor(timeTableRequest.getInstructor());
-            timeTable.setStartTime(timeTableRequest.getStartTime());
-            timeTable.setEndTime(timeTableRequest.getEndTime());
-            timeTable.setCreatedAt(timeTableRequest.getCreatedAt());
-            timeTableRepository.save(timeTable);
-            Batch batch = batchService.getBatchByBatchId(timeTableRequest.getBatchId());
-            batch.getTimeTables().add(timeTable); // adding timetable on batch
-            batchService.saveUpdates(batch,admin.getUserId());
-            return true;
-        }
-    }
-
-    // todo i need know how to use this snippet of code in UI
-    @Override
-    public ScheduledTimeTableResponse scheduleTimeTable(ScheduleTimeTableRequest request) {
-        // Check for conflicts in the schedule
-        boolean isConflict = hasConflictSchedule(request);
-        if (isConflict) {
-            throw new AppException("Schedule Conflicted");
+    public Boolean createTimeTableWithScheduleEntry(TimeTableRequest timeTableRequest) {
+        User admin = userService.getUserByUserId(timeTableRequest.getCreatorId());
+        if (admin == null || !admin.getUserRole().equalsIgnoreCase("admin")) {
+            throw new AppException("Invalid admin");
         }
 
-        // Prepare the TimeTable entity to be saved
+        Batch batch = batchService.getBatchByBatchId(timeTableRequest.getBatchId());
+        if (batch == null) {
+            throw new AppException("Invalid Batch");
+        }
+
+        // Creating time table
         TimeTable timeTable = new TimeTable();
-        timeTable.setBatchId(request.getBatchId());
-        // Assuming you need to set the date, start time, end time, etc. for each slot
-        for (DaySchedule daySchedule : request.getSchedules()) {
-            for (Slot slot : daySchedule.getSlots()) {
-                // You can set the details like date, startTime, endTime, etc. as needed
-                timeTable.setDate(new Date()); // Set the current date or appropriate date
-                timeTable.setStartTime(slot.getStartTime());
-                timeTable.setEndTime(slot.getEndTime());
-                timeTable.setInstructor(slot.getInstructor());
-                timeTable.setEventType(slot.getTopic()); // Assuming eventType can be the topic
+        timeTable.setCreatorId(timeTableRequest.getCreatorId());
+        timeTable.setBatchId(timeTableRequest.getBatchId());
+        timeTable.setDate(timeTableRequest.getDate());
 
-                // Save the timetable for each slot (adjust logic based on your needs)
-                timeTableRepository.save(timeTable);
-            }
+        TimeTable newTimeTable = timeTableRepository.save(timeTable);
+
+        boolean isSchedule = false;
+        // array initialize
+        if (newTimeTable.getScheduleEntries() == null) {
+            newTimeTable.setScheduleEntries(new ArrayList<>());
         }
 
-        // Prepare the response
-        ScheduledTimeTableResponse response = new ScheduledTimeTableResponse();
-        response.setTable(timeTable);
-        response.setRequest(request);
-        return response;
+        for (ScheduleEntryReq scheduleEntryReq : timeTableRequest.getCreateScheduleReqList()) {
+            // new time table id is set
+            scheduleEntryReq.setTimetableId(newTimeTable.getTimeTableId());
+
+            ScheduleEntry scheduleEntry = scheduleEntryService.createScheduleEntry(scheduleEntryReq);
+
+            // Add to the schedule entry in list
+            newTimeTable.getScheduleEntries().add(scheduleEntry);
+            isSchedule = true;
+        }
+
+        if (!isSchedule) {
+            throw new AppException("No Entry for Schedule");
+        }
+
+        // Saving updated time table in repository
+        timeTableRepository.save(newTimeTable);
+        batch.getTimeTables().add(newTimeTable);
+        batchService.saveUpdates(batch); // Saving updated data on batch with time table
+
+        return true;
     }
 
-    // this helps to find conflicts
-    @Override
-    public Boolean hasConflictSchedule(ScheduleTimeTableRequest request) {
-        for (DaySchedule schedule : request.getSchedules()) { // monday
-            List<Slot> slots = schedule.getSlots(); // monday classes slot
-            for (int i = 0; i < slots.size(); i++) {
-                Slot slot1 = slots.get(i);  // take a solt
-                for (int j = i + 1; j < slots.size(); j++) {
-                    Slot slot2 = slots.get(j); // next index slot // 1
-                    // overlapping of Slots
-                    if (slot1.getStartTime().compareTo(slot2.getEndTime()) < 0 &&
-                            slot1.getEndTime().compareTo(slot2.getStartTime()) > 0) {
-                        return true; // if conflicts found
-                    }
-                }
-            }
-        }
-        return false; // No conflicts found
-    }
-
-    @Override
-    public TimeTable getTimeTableByBatchId(String batchId) {
-        TimeTable timeTable = timeTableRepository.findByBatchId(batchId);
-        if(timeTable == null) {
-            throw new AppException("Invalid BatchId");
-        } else {
-            return timeTable;
-        }
-    }
+    // todo this is not completed
 
     @Override
     public Boolean updateTimeTable(UpdateTimeTableReq req) {
         // checking correct batch Id
         TimeTable timeTable = timeTableRepository.findByBatchId(req.getBatchId());
-        if(timeTable == null) {
+        if (timeTable == null) {
             throw new AppException("Invalid Batch Id");
         } else {
-            timeTable.setEventType(req.getEventType());
-            timeTable.setStartTime(req.getStartTime());
-            timeTable.setEndTime(req.getEndTime());
-            timeTable.setUpdatedAt(req.getUpdatedAt());
-            timeTable.setInstructor(req.getInstructor());
+//            timeTable.setEventType(req.getEventType());
+//            timeTable.setStartTime(req.getStartTime());
+//            timeTable.setEndTime(req.getEndTime());
+//            timeTable.setUpdatedAt(req.getUpdatedAt());
+//            timeTable.setInstructor(req.getInstructor());
             timeTableRepository.save(timeTable);
             return true;
         }
+    }
+
+    @Override
+    public TimeTable getTimeTableByTimeTableId(String timeTableId) {
+        return timeTableRepository.findByTimeTableId(timeTableId);
+    }
+
+    @Override
+    public List<TimeTable> getTimeTablesByStudentId(String studentId) {
+        User student = userService.getUserByUserId(studentId);
+        if (student == null) {
+            throw new AppException("Invalid Student");
+        } else {
+
+            String batchId = batchService.getBatchIdByStudentId(studentId);
+            if (batchId == null) {
+                throw new AppException("Batch Id can not be null");
+            } else {
+                return timeTableRepository.findAllByBatchId(batchId);
+            }
+        }
+    }
+
+    @Override
+    public TimeTable getTimeTableByBatchId(String batchId) {
+        return timeTableRepository.findByBatchId(batchId);
     }
 
 
     @Override
     public List<TimeTable> getAllTimeTables() {
         return timeTableRepository.findAll();
+    }
+
+    @Override
+    public List<TimeTable> getTimeTablesByBatchId(String batchId) {
+        Batch batch = batchService.getBatchByBatchId(batchId);
+        if (batch == null) {
+            throw new AppException("Invalid Batch");
+        } else {
+            List<TimeTable> timeTables = timeTableRepository.findAllByBatchId(batchId);;
+            if (timeTables.isEmpty()) {
+                throw new AppException("No timeTable found");
+            }
+            return timeTables;
+        }
     }
 }

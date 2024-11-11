@@ -13,6 +13,7 @@ import in.codingAge.scheduleSystems.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,10 +45,10 @@ public class BatchServiceImpl implements BatchService {
             batch.setCreatorId(batchRequest.getCreatorId());
             batch.setBatchName(batchRequest.getBatchName());
             batch.setCreatorName(batchRequest.getCreatorName());
+            batch.setBatchDescription(batchRequest.getBatchDescription());
             batch.setCreatedDate(batchRequest.getCreatedDate());
-            admin.getBatchList().add(batch); // this will add admin on that batch
             userService.saveUpdates(admin); // this will save updated data on Batch
-            batch.setActive(true);
+            batch.setActiveBatch(true);
             // Saving new Batch in my repository
             return batchRepository.save(batch);
         }
@@ -64,7 +65,7 @@ public class BatchServiceImpl implements BatchService {
             // checking correct admin id or not
             User user = userService.getUserByUserId(assignRequest.getCreatorId());
             if(user == null) {
-                throw new AppException("Invalid Admin Id");
+                throw new AppException("Invalid User ");
             } else {
                 // if user is admin
                 if(user.getUserRole().equalsIgnoreCase("admin")) {
@@ -73,9 +74,7 @@ public class BatchServiceImpl implements BatchService {
                     for(String student: assignRequest.getStudentId()) {
                         User newStudent = userService.getUserByUserId(student);
                         if(newStudent != null) {
-                            batch.getUsers().add(newStudent); // assign new student in batch
-                            newStudent.setInBatch(true);
-                            newStudent.getBatchList().add(batch); // student assigned a batch
+                            batch.getUsers().add(newStudent);
                             userService.saveUpdates(newStudent); // saving each student in their repo
                             assigned = true; // at least one student assign
                         }
@@ -118,8 +117,6 @@ public class BatchServiceImpl implements BatchService {
                         User student = userService.getUserByUserId(studentId);
                         if(student != null) {
                             batch.getUsers().remove(student);
-                            student.setInBatch(false);
-                            admin.getBatchList().remove(batch); // it removes batch from student
                             userService.saveUpdates(student);
                             isRemove = true;
                         }
@@ -143,22 +140,14 @@ public class BatchServiceImpl implements BatchService {
     }
 
     @Override
-    public Batch saveUpdates(Batch batch, String userId) {
-    User user = userService.getUserByUserId(userId);
-    // no need to check valid user Id because it always be valid due to already checked
-
-        // it check if batch is in userList or not
-        if (!user.getBatchList().contains(batch)) {
-            user.getBatchList().add(batch);
-        }
-        userService.saveUpdates(user);
+    public Batch saveUpdates(Batch batch) {
         return batchRepository.save(batch);
     }
 
 
     @Override
     public Boolean updateBatch(UpdateBatchReq updateBatchReq) {
-        User admin = userService.getUserByUserId(updateBatchReq.getBatchCreatorId());
+        User admin = userService.getUserByUserId(updateBatchReq.getCreatorId());
         if (admin == null || admin.getUserRole().equalsIgnoreCase("user")) {
             throw new AppException("You are not authorize for this action");
         } else {
@@ -166,13 +155,10 @@ public class BatchServiceImpl implements BatchService {
             if (batch == null) {
                 throw new AppException("Invalid Batch Id");
             } else {
-                // todo i have to add some more data to update batch
+                batch.setBatchDescription(updateBatchReq.getBatchDescription());
                 batch.setBatchName(updateBatchReq.getBatchName());
-                // Update the admin batch list
-                if (!admin.getBatchList().contains(batch)) {
-                    admin.getBatchList().add(batch);
-                }
-                userService.saveUpdates(admin);
+                batch.setCreatedDate(updateBatchReq.getCreatedDate());
+                batch.setCreatorName(updateBatchReq.getCreatorName());
                 batchRepository.save(batch);
                 return true;
             }
@@ -190,5 +176,39 @@ public class BatchServiceImpl implements BatchService {
        }
        throw new AppException("Student is not in Batch");
     }
+
+    @Override
+    public List<User> getAllStudentsByBatchId(String batchId) {
+        Batch batch = batchRepository.findByBatchId(batchId);
+        if (batch == null) {
+            throw new AppException("Invalid Batch");
+        } else {
+            List<User> students = new ArrayList<>();
+            if (batch.getUsers() == null || batch.getUsers().isEmpty()) {
+                throw new AppException("No one in Batch");
+            }
+            for (User user : batch.getUsers()) {
+                if (user != null && user.getUserRole().equalsIgnoreCase("student")) {
+                    students.add(user);
+                }
+            }
+            if (students.isEmpty()) {
+                throw new AppException("No Students in Batch");
+            }
+            return students;
+        }
+    }
+
+
+    @Override
+    public Batch getDetailsByBatchId(String batchId) {
+        Batch batch = getBatchByBatchId(batchId);
+        if (batch == null) {
+            throw new AppException("Invalid Batchid");
+        } else {
+            return batch;
+        }
+    }
+
 
 }

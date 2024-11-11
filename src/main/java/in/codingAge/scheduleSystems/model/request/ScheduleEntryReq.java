@@ -6,16 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.sql.Time;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class TimeTableRequest {
-    private String batchId;
-    private String creatorId;
-    private Date date;
-    private List<ScheduleEntryReq>  createScheduleReqList;
+
+public class ScheduleEntryReq {
+    private String timetableId;
+    private String className;
+    private String instructor;
+    private String location;
+    private Time startTime;
+    private String eventType;
+    private Long duration;
 }

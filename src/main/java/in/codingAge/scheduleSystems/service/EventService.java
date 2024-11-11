@@ -8,12 +8,9 @@ import java.util.List;
 
 public interface EventService {
     boolean createEvent(EventRequest eventRequest);
-
-    void updateEventStatus();
-
     List<Event> getAllUpcomingEvents(String studentId);
 
     Boolean updateEventDetails(UpdateEventReq eventReq);
 
-    List<Event> getAllUpcomingTest(String studentId);
+    List<Event> getEventsByBatchId(String batchId);
 }

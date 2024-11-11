@@ -26,6 +26,11 @@ public class EventController {
         return new ApiResponse<>(eventService.createEvent(eventRequest), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/get/by/batch")
+    public ApiResponse<List<Event>> getEventsByBatchId(@RequestParam String batchId) {
+        return new ApiResponse<>(eventService.getEventsByBatchId(batchId), HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/all/upcoming")
     public ApiResponse<List<Event>> getAllUpcomingEvents(@RequestParam String studentId) {
         return new ApiResponse<>(eventService.getAllUpcomingEvents(studentId),HttpStatus.ACCEPTED);
@@ -36,9 +41,10 @@ public class EventController {
         return new ApiResponse<>(eventService.updateEventDetails(eventReq),HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/all/upcoming/test")
-    public ApiResponse<List<Event>> getAllUpcomingTest(@RequestParam String studentId) {
-        return new ApiResponse<>(eventService.getAllUpcomingTest(studentId),HttpStatus.ACCEPTED);
-    }
+//    @GetMapping("/all/upcoming/test")
+//    public ApiResponse<List<Event>> getAllUpcomingTest(@RequestParam String studentId) {
+//        return new ApiResponse<>(eventService.getAllUpcomingTest(studentId),HttpStatus.ACCEPTED);
+//    }
+
 
 }

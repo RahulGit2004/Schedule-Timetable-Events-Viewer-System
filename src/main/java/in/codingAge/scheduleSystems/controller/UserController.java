@@ -1,6 +1,7 @@
 package in.codingAge.scheduleSystems.controller;
 
 import in.codingAge.scheduleSystems.base.ApiResponse;
+import in.codingAge.scheduleSystems.model.Notification;
 import in.codingAge.scheduleSystems.model.User;
 import in.codingAge.scheduleSystems.model.request.SignUpRequest;
 import in.codingAge.scheduleSystems.model.response.LoginResponse;
@@ -36,6 +37,16 @@ public class UserController {
     @GetMapping("/all/students")
     public List<User> getAllStudents() {
         return userService.getAllStudents();
+    }
+
+    @GetMapping("/get/notification/id")
+    public ApiResponse<List<Notification>> getAllNotificationByUserId(@RequestParam String userId) {
+        return new ApiResponse<>(userService.getAllNotificationByUserId(userId),HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/mark/notification")
+    public ApiResponse<Boolean> markNotificationRead (@RequestParam String userId, String notificationId) {
+        return new ApiResponse<>(userService.markNotificationRead(userId, notificationId),HttpStatus.ACCEPTED);
     }
 
 

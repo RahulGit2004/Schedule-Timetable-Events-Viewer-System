@@ -1,6 +1,7 @@
 package in.codingAge.scheduleSystems.service;
 
 import in.codingAge.scheduleSystems.model.Batch;
+import in.codingAge.scheduleSystems.model.User;
 import in.codingAge.scheduleSystems.model.request.AssignRequest;
 import in.codingAge.scheduleSystems.model.request.BatchRequest;
 import in.codingAge.scheduleSystems.model.request.RemoveBatchRequest;
@@ -20,10 +21,14 @@ public interface BatchService {
 
     Batch getBatchByBatchId(String batchId);
 
-    Batch saveUpdates(Batch batch, String userId);
+    Batch saveUpdates(Batch batch);
 
     Boolean updateBatch(UpdateBatchReq updateBatchReq);
 
     String getBatchIdByStudentId(String studentId);
 
+    List<User> getAllStudentsByBatchId(String batchId);
+
+
+    Batch getDetailsByBatchId(String batchId);
 }

@@ -1,5 +1,6 @@
 package in.codingAge.scheduleSystems.model.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,14 +13,13 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class EventRequest {
-    private String batchId;
     private String creatorId;
-    private String eventName;
-    private String eventStatus;
+    private String batchId;
+    private String title;
+    private String organizer;
+    private String description;
     private String location;
-    private String eventOrganizer;
-    private String eventDescription;
-    private LocalDateTime eventDate;
-    private LocalDateTime eventStartTime;
-    private LocalDateTime eventEndTime;
+    private String eventType;
+    private Date Date;
+    private Time Time;
 }

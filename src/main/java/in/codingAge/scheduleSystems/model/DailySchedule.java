@@ -6,30 +6,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Document(collection = "timetables")
 @Getter
 @Setter
 @AllArgsConstructor
-public class TimeTable {
+@Document(collection = "daily_schedule")
+public class DailySchedule {
     @Id
-    private String timeTableId;
-
-    private String creatorId;
+    private String dailyScheduleId;
     private String batchId;
-
+    private String timeTableId;
+    private String creatorId;
     private Date date;
-    private List<ScheduleEntry> scheduleEntries;
-    private Boolean notificationEnabled;
+    private List<ScheduleEntry> events;
 
-    public TimeTable() {
-        this.scheduleEntries = new ArrayList<>();
+    public DailySchedule(){
+        this.events = new ArrayList<>();
     }
+
+
 
 }

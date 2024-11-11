@@ -4,8 +4,6 @@ import in.codingAge.scheduleSystems.base.ApiResponse;
 import in.codingAge.scheduleSystems.model.TimeTable;
 import in.codingAge.scheduleSystems.model.request.TimeTableRequest;
 import in.codingAge.scheduleSystems.model.request.UpdateTimeTableReq;
-import in.codingAge.scheduleSystems.model.request.schedule.ScheduleTimeTableRequest;
-import in.codingAge.scheduleSystems.model.response.ScheduledTimeTableResponse;
 import in.codingAge.scheduleSystems.service.TimeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,15 +20,12 @@ public class TimeTableController {
     private TimeTableService timeTableService;
 
     @PostMapping("/create")
-    public ApiResponse<Boolean> createTimeTable(@RequestBody TimeTableRequest timeTableRequest) {
-        return new ApiResponse<>(timeTableService.createTimeTable(timeTableRequest), HttpStatus.ACCEPTED);
+    public ApiResponse<Boolean> createTimeTableWithScheduleEntry(@RequestBody TimeTableRequest timeTableRequest) {
+        return new ApiResponse<>(timeTableService.createTimeTableWithScheduleEntry(timeTableRequest), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/schedule")
-    public ApiResponse<ScheduledTimeTableResponse> scheduleTimeTable(@RequestBody ScheduleTimeTableRequest request) {
-        return new ApiResponse<>(timeTableService.scheduleTimeTable(request), HttpStatus.ACCEPTED);
-    }
 
+    // todo not call this updateTimeTable api  {not worked yet}
     @PutMapping("/update")
     public ApiResponse<Boolean> updateTimeTable(@RequestBody UpdateTimeTableReq req) {
         return new ApiResponse<>(timeTableService.updateTimeTable(req), HttpStatus.ACCEPTED);
@@ -42,8 +37,13 @@ public class TimeTableController {
     }
 
     @GetMapping("/batchId")
-    public ApiResponse<TimeTable> getTimeTableByBatchId(String batchId) {
-        return new ApiResponse<>(timeTableService.getTimeTableByBatchId(batchId), HttpStatus.ACCEPTED);
+    public ApiResponse<List<TimeTable>> getTimeTablesByBatchId(@RequestParam String batchId) {
+        return new ApiResponse<>(timeTableService.getTimeTablesByBatchId(batchId), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/studentId")
+    public ApiResponse<List<TimeTable>> getTimeTablesByStudentId(@RequestParam String studentId) {
+        return new ApiResponse<>(timeTableService.getTimeTablesByStudentId(studentId),HttpStatus.ACCEPTED);
     }
 
     // todo make api if need in FrontEnd :- deleteTimeTableByBatchId()

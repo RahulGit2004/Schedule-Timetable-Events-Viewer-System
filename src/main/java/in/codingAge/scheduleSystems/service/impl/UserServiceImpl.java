@@ -1,12 +1,15 @@
 package in.codingAge.scheduleSystems.service.impl;
 
 import in.codingAge.scheduleSystems.exception.AppException;
+import in.codingAge.scheduleSystems.model.Notification;
 import in.codingAge.scheduleSystems.model.User;
 import in.codingAge.scheduleSystems.model.request.SignUpRequest;
 import in.codingAge.scheduleSystems.model.response.LoginResponse;
 import in.codingAge.scheduleSystems.repository.UserRepository;
+import in.codingAge.scheduleSystems.service.NotificationService;
 import in.codingAge.scheduleSystems.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +20,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    @Lazy
+    private NotificationService notificationService;
 
 
     @Override
@@ -80,15 +87,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllStudents() {
-        List<User> students = getUsersByRole("student");
-        List<User> studentList = new ArrayList<>();
-        for (User student: students) {
-            if(!student.isInBatch()){
-                studentList.add(student);
-            }
-        }
-        return studentList;
+        return getUsersByRole("student");
     }
 
+    @Override
+    public List<Notification> getAllNotificationByUserId(String userId) {
+        User user = getUserByUserId(userId);
+        if (user == null) {
+            throw new AppException("Invalid User");
+        } else {
+            return new ArrayList<>(user.getNotificationList());
+        }
+    }
 
+    @Override
+    public Boolean markNotificationRead(String userId, String notificationId) {
+        User user = getUserByUserId(userId);
+        if (user == null) {
+            throw new AppException("Invalid User");
+        } else {
+            for (Notification notification: user.getNotificationList()) {
+                if (notification.getNotificationId().equals(notificationId)) {
+                    notification.setReadNotification(true);
+                    notificationService.saveUpdates(notification);
+                    userRepository.save(user);
+                    return true;
+                }
+            }
+            throw new AppException("Invalid Notification Id");
+        }
+    }
 }

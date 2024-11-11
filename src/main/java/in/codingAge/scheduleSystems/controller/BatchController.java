@@ -2,6 +2,7 @@ package in.codingAge.scheduleSystems.controller;
 
 import in.codingAge.scheduleSystems.base.ApiResponse;
 import in.codingAge.scheduleSystems.model.Batch;
+import in.codingAge.scheduleSystems.model.User;
 import in.codingAge.scheduleSystems.model.request.AssignRequest;
 import in.codingAge.scheduleSystems.model.request.BatchRequest;
 import in.codingAge.scheduleSystems.model.request.RemoveBatchRequest;
@@ -37,6 +38,10 @@ public class BatchController {
         return new ApiResponse<>(batchService.removeStudentsFromBatch(batchRequest),HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/all/students/batchId")
+    public ApiResponse<List<User>> getAllStudentsByBatchId(@RequestParam String batchId) {
+        return new ApiResponse<>(batchService.getAllStudentsByBatchId(batchId),HttpStatus.ACCEPTED);
+    }
 
 
 // todo update batch api needed
@@ -49,6 +54,11 @@ public class BatchController {
     @GetMapping("/all/list")
     public List<Batch> getAllBatches() {
         return batchService.getAllBatches();
+    }
+
+    @GetMapping("/details/id")
+    public ApiResponse<Batch> getDetailsByBatchId (@RequestParam String batchId) {
+        return new ApiResponse<>(batchService.getDetailsByBatchId(batchId),HttpStatus.ACCEPTED);
     }
 
 
