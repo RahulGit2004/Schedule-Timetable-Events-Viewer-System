@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0dae7b08-c146-4b6b-a01e-0f262dcadfcc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/base/DateTimeConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/DailyScheduleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/ScheduleEntryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/DailySchedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/ScheduleChangeLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/ScheduleEntry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/DailyScheduleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/ScheduleEntryReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/DailyScheduleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/NotificationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/ScheduleEntryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/DailyScheduleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/ScheduleEntryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/DailyScheduleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/NotificationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleEntryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/BatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/BatchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/ScheduleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/TimeTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/TimeTableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Batch.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Batch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Schedule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/TimeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/TimeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/BatchRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/BatchRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/CreateScheduleReq.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/EventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/EventRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/TestRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/TimeTableRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/TimeTableRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/UpdateBatchReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/UpdateBatchReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/UpdateEventReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/UpdateEventReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/UpdateTimeTableReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/UpdateTimeTableReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/schedule/DaySchedule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/schedule/ScheduleTimeTableRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/request/schedule/Slot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/model/response/ScheduledTimeTableResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/BatchRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/BatchRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/EventRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/ScheduleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/TimeTableRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/repository/TimeTableRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/BatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/BatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/ScheduleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/TimeTableService.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/TimeTableService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/BatchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/BatchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/EventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/target/scheduleSystems-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/target/scheduleSystems-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/target/surefire-reports/TEST-in.codingAge.scheduleSystems.ScheduleSystemsApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/target/surefire-reports/TEST-in.codingAge.scheduleSystems.ScheduleSystemsApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSystems/target/surefire-reports/in.codingAge.scheduleSystems.ScheduleSystemsApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSystems/target/surefire-reports/in.codingAge.scheduleSystems.ScheduleSystemsApplicationTests.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/scheduleSystems" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2oKPF3OO91WhjfkzV1g3nHxRT4W" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ScheduleSystemsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Try.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;debugger.stepping&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="in.codingAge.scheduleSystems.repository" />
+      <recent name="in.codingAge.scheduleSystems.service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rahul\OneDrive\Desktop\Internship Project Backend\scheduleSystems" />
+      <recent name="C:\Users\rahul\OneDrive\Desktop\Internship Project Backend" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ScheduleSystemsApplication">
+    <configuration name="ScheduleSystemsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="in.codingAge.scheduleSystems.ScheduleSystemsApplication" />
+      <module name="scheduleSystems" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="in.codingAge.scheduleSystems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Try" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="in.codingAge.scheduleSystems.Try" />
+      <module name="scheduleSystems" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="in.codingAge.scheduleSystems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ScheduleSystemsApplication" />
+        <item itemvalue="Application.Try" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0dae7b08-c146-4b6b-a01e-0f262dcadfcc" name="Changes" comment="" />
+      <created>1730615188569</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730615188569</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/TimeTableServiceImpl.java</url>
+          <line>66</line>
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleEntryServiceImpl.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleEntryServiceImpl.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleEntryServiceImpl.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleEntryServiceImpl.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/impl/ScheduleEntryServiceImpl.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/controller/BatchController.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/scheduleSystems/src/main/java/in/codingAge/scheduleSystems/service/ScheduleEntryService.java</url>
+          <line>8</line>
+          <properties class="in.codingAge.scheduleSystems.service.ScheduleEntryService" method="createScheduleEntry">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-defaults>
+        <breakpoint suspend="THREAD" type="java-line" />
+        <breakpoint suspend="THREAD" type="java-exception" />
+      </breakpoints-defaults>
+      <default-breakpoints>
+        <breakpoint type="java-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
