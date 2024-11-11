@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
 public interface ScheduleEntryRepository extends MongoRepository<ScheduleEntry,String> {
-    List<ScheduleEntry> findByTimetableIdAndStartTime(String timetableId, Time startTime);
+    List<ScheduleEntry> findByTimetableIdAndStartTime(String timetableId, LocalTime startTime);
 
     ScheduleEntry findByScheduleEntryId(String scheduleEntryId);
 }

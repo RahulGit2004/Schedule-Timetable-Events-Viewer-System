@@ -43,9 +43,9 @@ public class DailyScheduleServiceImpl implements DailyScheduleService {
             throw new AppException("Invalid Batch");
         }
 
-        TimeTable timeTable = timeTableService.getTimeTableByBatchId(dailyScheduleRequest.getBatchId());
+        List<TimeTable> timeTable = timeTableService.getTimeTableByBatchId(dailyScheduleRequest.getBatchId());
 
-        if (timeTable == null) {
+        if (timeTable.isEmpty()) {
             throw new AppException("No Time table found for batch");
         }
 
@@ -53,11 +53,11 @@ public class DailyScheduleServiceImpl implements DailyScheduleService {
         dailySchedule.setBatchId(dailyScheduleRequest.getBatchId());
         dailySchedule.setCreatorId(dailyScheduleRequest.getCreatorId());
         dailySchedule.setDate(dailyScheduleRequest.getDate());
-        dailySchedule.setTimeTableId(timeTable.getTimeTableId());
+        dailySchedule.setTimeTableId(timeTable.get(0).getTimeTableId());
 
-        dailyScheduleRepository.save(dailySchedule);
         boolean isScheduleCreated = false;
         for (ScheduleEntryReq scheduleEntryReq : dailyScheduleRequest.getEvents()) {
+            scheduleEntryReq.setTimetableId(dailySchedule.getTimeTableId());
           ScheduleEntry scheduleEntry = scheduleEntryService.createScheduleEntry(scheduleEntryReq);
           dailySchedule.getEvents().add(scheduleEntry);
             isScheduleCreated = true;

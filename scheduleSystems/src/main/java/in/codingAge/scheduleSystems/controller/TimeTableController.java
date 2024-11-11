@@ -36,6 +36,9 @@ public class TimeTableController {
         return timeTableService.getAllTimeTables();
     }
 
+//    @GetMapping("/chedk")
+//    public List<>
+
     @GetMapping("/batchId")
     public ApiResponse<List<TimeTable>> getTimeTablesByBatchId(@RequestParam String batchId) {
         return new ApiResponse<>(timeTableService.getTimeTablesByBatchId(batchId), HttpStatus.ACCEPTED);

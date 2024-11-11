@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Getter
@@ -14,7 +16,7 @@ public class UpdateTimeTableReq {
     private String batchId;
     private String eventType;
     private String instructor;
-    private Date updatedAt;
-    private Time startTime;
-    private Time endTime;
+    private LocalDate updatedAt;
+    private LocalTime startTime;
+    private LocalTime endTime;
 }

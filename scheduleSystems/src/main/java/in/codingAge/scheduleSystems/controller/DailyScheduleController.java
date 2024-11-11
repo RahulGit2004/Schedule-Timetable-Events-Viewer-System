@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/daily_schedule")
+@RequestMapping("/api/v1/daily_schedule")
 @CrossOrigin("*")
 public class DailyScheduleController {
 
     @Autowired
     private DailyScheduleService dailyScheduleService;
 
-    @PostMapping("/dailySchedules")
+    @PostMapping("/create")
     public ApiResponse<Boolean> createDailySchedule (@RequestBody DailyScheduleRequest dailyScheduleRequest) {
         return new ApiResponse<>(dailyScheduleService.createDailySchedule(dailyScheduleRequest), HttpStatus.ACCEPTED);
     }
@@ -33,6 +33,8 @@ public class DailyScheduleController {
     public ApiResponse<List<DailySchedule>> getDailySchedulesByBatchId(@RequestParam String batchId) {
         return new ApiResponse<>(dailyScheduleService.getSchedulesByBatchId(batchId), HttpStatus.ACCEPTED);
     }
+
+
 
 
 }

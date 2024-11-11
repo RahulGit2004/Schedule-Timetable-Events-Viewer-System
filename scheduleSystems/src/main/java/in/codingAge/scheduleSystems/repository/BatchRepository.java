@@ -10,6 +10,4 @@ public interface BatchRepository extends MongoRepository<Batch, String > {
     Batch findByBatchName(String batchName);
 
     Batch findByBatchId(String batchId);
-
-//    List<Schedule> findAllByBatchId(String batchId);
 }

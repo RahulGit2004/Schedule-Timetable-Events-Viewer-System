@@ -4,6 +4,7 @@ import in.codingAge.scheduleSystems.model.Event;
 import in.codingAge.scheduleSystems.model.request.EventRequest;
 import in.codingAge.scheduleSystems.model.request.UpdateEventReq;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EventService {
@@ -13,4 +14,5 @@ public interface EventService {
     Boolean updateEventDetails(UpdateEventReq eventReq);
 
     List<Event> getEventsByBatchId(String batchId);
+
 }

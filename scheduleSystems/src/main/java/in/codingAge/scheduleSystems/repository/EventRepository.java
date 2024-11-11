@@ -4,6 +4,7 @@ import in.codingAge.scheduleSystems.model.Event;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -14,5 +15,8 @@ public interface EventRepository extends MongoRepository<Event, String> {
 
     List<Event> findAllByBatchId(String batchId);
 
-    List<Event> findAllByBatchIdAndDateAfter(String batchId, LocalDateTime date);}
+    List<Event> findAllByBatchIdAndDateAfter(String batchId, LocalDate date);
+
+    List<Event> findByBatchIdAndDate(String batchId, LocalDate date);
+}
 

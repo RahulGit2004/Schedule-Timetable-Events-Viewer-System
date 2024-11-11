@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class DailySchedule {
     private String batchId;
     private String timeTableId;
     private String creatorId;
-    private Date date;
+    private LocalDate date;
     private List<ScheduleEntry> events;
 
     public DailySchedule(){

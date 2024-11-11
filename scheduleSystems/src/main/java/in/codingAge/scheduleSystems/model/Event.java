@@ -8,7 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Document(collection = "events")
@@ -26,9 +28,8 @@ public class Event {
     private String description;
     private String location;
     private String eventType;
-    private Date Date;
-    private Time Time;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Boolean notifyStudents;
-
-
 }

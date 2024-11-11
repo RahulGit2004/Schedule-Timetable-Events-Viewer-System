@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Getter
@@ -20,6 +22,7 @@ public class UpdateEventReq {
     private String description;
     private String location;
     private String eventType;
-    private Date Date;
-    private Time Time;
+    private LocalDate Date;
+    private LocalTime startTime;
+    private LocalTime endTime;
 }

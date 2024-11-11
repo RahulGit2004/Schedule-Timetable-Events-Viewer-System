@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
@@ -24,7 +25,7 @@ public class ScheduleEntry {
     private String className;
     private String instructor;
     private String location;
-    private Time startTime;
+    private LocalTime startTime;
     private String eventType;
     private Long duration;
 }

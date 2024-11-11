@@ -19,5 +19,5 @@ public interface TimeTableService {
 
     List<TimeTable> getTimeTablesByStudentId(String studentId);
 
-    TimeTable getTimeTableByBatchId(String batchId);
+    List<TimeTable> getTimeTableByBatchId(String batchId);
 }

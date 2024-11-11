@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -17,7 +19,7 @@ public class ScheduleEntryReq {
     private String className;
     private String instructor;
     private String location;
-    private Time startTime;
+    private LocalTime startTime;
     private String eventType;
     private Long duration;
 }

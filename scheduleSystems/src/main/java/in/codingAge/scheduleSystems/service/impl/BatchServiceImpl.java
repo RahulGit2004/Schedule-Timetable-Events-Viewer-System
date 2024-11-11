@@ -95,7 +95,14 @@ public class BatchServiceImpl implements BatchService {
 
     @Override
     public List<Batch> getAllBatches() {
-        return batchRepository.findAll();
+        try {
+            return batchRepository.findAll();
+        } catch (Exception e) {
+            // Log the exception
+            System.err.println("Error retrieving batches: " + e.getMessage());
+            // Optionally, rethrow as a custom exception or return an empty list
+            throw new RuntimeException("Failed to retrieve batches", e);
+        }
     }
 
     @Override
@@ -138,6 +145,7 @@ public class BatchServiceImpl implements BatchService {
     public Batch getBatchByBatchId(String batchId) {
         return batchRepository.findByBatchId(batchId);
     }
+
 
     @Override
     public Batch saveUpdates(Batch batch) {

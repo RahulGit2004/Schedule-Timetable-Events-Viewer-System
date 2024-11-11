@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +44,12 @@ public class EventServiceImpl implements EventService {
             if (admin == null || admin.getUserRole().equalsIgnoreCase("student")) {
                 throw new AppException("You are not authorize");
             } else {
+                List<Event> existingEvents = eventRepository.findByBatchIdAndDate(eventRequest.getBatchId(), eventRequest.getDate());
+                for (Event existingEvent : existingEvents) {
+                    if (isTimeConflict(existingEvent, eventRequest)) {
+                        throw new AppException("Event time conflict detected");
+                    }
+                }
                 Event event = getEvent(eventRequest);
                 eventRepository.save(event);
                 return true;
@@ -56,7 +63,8 @@ public class EventServiceImpl implements EventService {
         event.setEventType(event.getEventType());
         event.setCreatorId(event.getCreatorId());
         event.setDate(eventRequest.getDate());
-        event.setTime(eventRequest.getTime());
+        event.setStartTime(eventRequest.getStartTime());
+        event.setEndTime(eventRequest.getEndTime());
         event.setDescription(event.getDescription());
         event.setLocation(event.getLocation());
         event.setTitle(event.getTitle());
@@ -65,6 +73,13 @@ public class EventServiceImpl implements EventService {
         return event;
     }
 
+    private boolean isTimeConflict(Event existingEvent, EventRequest newEvent) {
+        LocalTime existingStartTime = existingEvent.getStartTime();
+        LocalTime existingEndTime = existingEvent.getEndTime();
+        LocalTime newStartTime = newEvent.getStartTime();
+        LocalTime newEndTime = newEvent.getEndTime();
+        return (newStartTime.isBefore(existingEndTime) && newEndTime.isAfter(existingStartTime));
+    }
     @Override
     public List<Event> getAllUpcomingEvents(String studentId) {
         User student = userService.getUserByUserId(studentId);
@@ -82,7 +97,7 @@ public class EventServiceImpl implements EventService {
             throw new AppException("Batch not found for the provided batch ID");
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDate now = LocalDate.now();
 
         List<Event> upcomingEvents = eventRepository.findAllByBatchIdAndDateAfter(batchId, now);
 
@@ -114,7 +129,8 @@ public class EventServiceImpl implements EventService {
                     event.setDescription(eventReq.getDescription());
                     event.setLocation(eventReq.getLocation());
                     event.setEventType(eventReq.getEventType());
-                    event.setTime(eventReq.getTime());
+                    event.setStartTime(eventReq.getStartTime());
+                    event.setEndTime(eventReq.getEndTime());
                     event.setOrganizer(eventReq.getOrganizer());
                     eventRepository.save(event);
                     return true;
@@ -132,4 +148,5 @@ public class EventServiceImpl implements EventService {
             return eventRepository.findAllByBatchId(batchId);
         }
     }
+
 }

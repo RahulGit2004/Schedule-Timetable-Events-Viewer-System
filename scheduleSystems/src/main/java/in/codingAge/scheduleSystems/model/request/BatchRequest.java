@@ -16,6 +16,5 @@ public class BatchRequest {
     private String creatorId;
     private String creatorName;
     private String batchDescription;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 }

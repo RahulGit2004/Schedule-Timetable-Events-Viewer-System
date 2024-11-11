@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Batch {
     private String batchName;
     private String batchDescription;
     private String creatorName;
-    private Date createdDate;
+    private LocalDate createdDate;
     private boolean activeBatch;
 
     // List of students & one admin in this batch

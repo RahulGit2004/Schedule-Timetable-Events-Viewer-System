@@ -95,21 +95,25 @@ public class ScheduleEntryServiceImpl implements ScheduleEntryService {
 
 
     public boolean checkScheduleConflict(ScheduleEntryReq newScheduleEntry) {
-        // Get the new schedule start time and duration
-        Time newScheduleStartTime = newScheduleEntry.getStartTime();
-        long newScheduleDuration = newScheduleEntry.getDuration(); // Duration as Long (in seconds)
+        LocalTime newScheduleStartTime = newScheduleEntry.getStartTime();
+        long newScheduleDuration = newScheduleEntry.getDuration();
 
         // Fetch existing entries from the repository
         List<ScheduleEntry> existingEntries = scheduleEntryRepository.findByTimetableIdAndStartTime(
                 newScheduleEntry.getTimetableId(), newScheduleStartTime);
 
+        System.out.println("Existing Entries: " + existingEntries);
+
         if (existingEntries.isEmpty()) {
-            return false; // No existing entries means no conflict
+            return false;
         }
 
         for (ScheduleEntry existingEntry : existingEntries) {
-            Time existingScheduleStartTime = existingEntry.getStartTime();
-            long existingScheduleDuration = existingEntry.getDuration(); // Duration as Long (in seconds)
+            System.out.println("Checking against existing entry: Start Time = " + existingEntry.getStartTime() +
+                    ", Duration = " + existingEntry.getDuration());
+
+            LocalTime existingScheduleStartTime = existingEntry.getStartTime();
+            long existingScheduleDuration = existingEntry.getDuration();
 
             // Check for overlap
             if (isOverlapping(newScheduleStartTime, newScheduleDuration,
@@ -120,17 +124,14 @@ public class ScheduleEntryServiceImpl implements ScheduleEntryService {
         return false; // No conflicts found
     }
 
-    // Updated isOverlapping method to work with Long for duration
-    private boolean isOverlapping(Time newEntryStart, long newEntryDuration,
-                                  Time existingEntryStart, long existingEntryDuration) {
-        // Convert Time to LocalDateTime for easier manipulation
-        LocalDateTime newEntryStartDateTime = newEntryStart.toLocalTime().atDate(LocalDate.now());
-        LocalDateTime newEntryEndDateTime = newEntryStartDateTime.plusSeconds(newEntryDuration);
-
-        LocalDateTime existingEntryStartDateTime = existingEntryStart.toLocalTime().atDate(LocalDate.now());
-        LocalDateTime existingEntryEndDateTime = existingEntryStartDateTime.plusSeconds(existingEntryDuration);
+    private boolean isOverlapping(LocalTime newEntryStart, long newEntryDuration,
+                                  LocalTime existingEntryStart, long existingEntryDuration) {
+        // Calculate end times by adding duration to start times
+        LocalTime newEntryEndTime = newEntryStart.plusSeconds(newEntryDuration);
+        LocalTime existingEntryEndTime = existingEntryStart.plusSeconds(existingEntryDuration);
 
         // Check if the new entry overlaps with the existing entry
-        return (newEntryStartDateTime.isBefore(existingEntryEndDateTime) && newEntryEndDateTime.isAfter(existingEntryStartDateTime));
+        return newEntryStart.isBefore(existingEntryEndTime) && newEntryEndTime.isAfter(existingEntryStart);
     }
+
 }

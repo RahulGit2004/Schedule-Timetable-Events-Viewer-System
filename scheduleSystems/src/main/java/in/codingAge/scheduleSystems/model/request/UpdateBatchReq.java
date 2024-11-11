@@ -16,6 +16,5 @@ public class UpdateBatchReq {
     private String batchName;
     private String batchDescription;
     private String creatorName;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 }

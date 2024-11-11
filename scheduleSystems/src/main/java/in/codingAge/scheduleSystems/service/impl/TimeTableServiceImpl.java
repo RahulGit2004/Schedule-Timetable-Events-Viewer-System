@@ -124,8 +124,8 @@ public class TimeTableServiceImpl implements TimeTableService {
     }
 
     @Override
-    public TimeTable getTimeTableByBatchId(String batchId) {
-        return timeTableRepository.findByBatchId(batchId);
+    public List<TimeTable> getTimeTableByBatchId(String batchId) {
+        return timeTableRepository.findAllByBatchId(batchId);
     }
 
 

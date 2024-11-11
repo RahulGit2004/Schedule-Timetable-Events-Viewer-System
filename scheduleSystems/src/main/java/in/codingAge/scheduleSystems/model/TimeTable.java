@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class TimeTable {
     private String creatorId;
     private String batchId;
 
-    private Date date;
+    private LocalDate date;
     private List<ScheduleEntry> scheduleEntries;
     private Boolean notificationEnabled;
 
