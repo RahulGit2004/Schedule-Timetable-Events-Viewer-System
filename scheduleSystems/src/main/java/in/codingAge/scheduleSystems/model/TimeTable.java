@@ -27,7 +27,7 @@ public class TimeTable {
 
     private LocalDate date;
     private List<ScheduleEntry> scheduleEntries;
-    private Boolean notificationEnabled;
+    private boolean notificationEnabled;
 
     public TimeTable() {
         this.scheduleEntries = new ArrayList<>();

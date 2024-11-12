@@ -31,5 +31,5 @@ public class Event {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private Boolean notifyStudents;
+    private boolean notifyStudents;
 }

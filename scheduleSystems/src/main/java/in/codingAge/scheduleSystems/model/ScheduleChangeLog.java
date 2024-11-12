@@ -22,5 +22,5 @@ public class ScheduleChangeLog {
     private String previousDetails;
     private String newDetails;
     private List<String> affectedUsers;
-    private Boolean notificationSent;
+    private boolean notificationSent;
 }

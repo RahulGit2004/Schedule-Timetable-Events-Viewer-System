@@ -102,15 +102,11 @@ public class ScheduleEntryServiceImpl implements ScheduleEntryService {
         List<ScheduleEntry> existingEntries = scheduleEntryRepository.findByTimetableIdAndStartTime(
                 newScheduleEntry.getTimetableId(), newScheduleStartTime);
 
-        System.out.println("Existing Entries: " + existingEntries);
-
         if (existingEntries.isEmpty()) {
             return false;
         }
 
         for (ScheduleEntry existingEntry : existingEntries) {
-            System.out.println("Checking against existing entry: Start Time = " + existingEntry.getStartTime() +
-                    ", Duration = " + existingEntry.getDuration());
 
             LocalTime existingScheduleStartTime = existingEntry.getStartTime();
             long existingScheduleDuration = existingEntry.getDuration();

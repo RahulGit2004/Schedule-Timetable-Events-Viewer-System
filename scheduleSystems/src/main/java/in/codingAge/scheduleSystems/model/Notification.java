@@ -20,7 +20,7 @@ public class Notification {
     private String userId;
     private String message;
     private String createdAt;
-    private Boolean readNotification;
+    private boolean readNotification;
 
 
 
