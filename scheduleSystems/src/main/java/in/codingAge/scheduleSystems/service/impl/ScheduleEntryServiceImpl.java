@@ -32,12 +32,6 @@ public class ScheduleEntryServiceImpl implements ScheduleEntryService {
     private TimeTableService timeTableService;
 
     public ScheduleEntry createScheduleEntry(ScheduleEntryReq scheduleEntryReq) {
-        // Validate if the timetable exists for the given timetableId
-        TimeTable timetable = timeTableService.getTimeTableByTimeTableId(scheduleEntryReq.getTimetableId());
-        if (timetable == null) {
-            throw new AppException("Invalid TimeTable");
-        }
-
         // Validate schedule conflicts
         boolean isConflicting = checkScheduleConflict(scheduleEntryReq);
         if (isConflicting) {
@@ -81,9 +75,13 @@ public class ScheduleEntryServiceImpl implements ScheduleEntryService {
         return scheduleEntryRepository.findAll();
     }
 
+    @Override
+    public ScheduleEntry saveUpdates(ScheduleEntry scheduleEntry) {
+        return scheduleEntryRepository.save(scheduleEntry);
+    }
+
     private static ScheduleEntry getScheduleEntry(ScheduleEntryReq scheduleEntryReq) {
         ScheduleEntry scheduleEntry = new ScheduleEntry();
-        scheduleEntry.setTimetableId(scheduleEntryReq.getTimetableId());
         scheduleEntry.setClassName(scheduleEntryReq.getClassName());
         scheduleEntry.setInstructor(scheduleEntryReq.getInstructor());
         scheduleEntry.setLocation(scheduleEntryReq.getLocation());
@@ -97,37 +95,34 @@ public class ScheduleEntryServiceImpl implements ScheduleEntryService {
     public boolean checkScheduleConflict(ScheduleEntryReq newScheduleEntry) {
         LocalTime newScheduleStartTime = newScheduleEntry.getStartTime();
         long newScheduleDuration = newScheduleEntry.getDuration();
+        List<ScheduleEntry> allEntries = scheduleEntryRepository.findAll();
 
-        // Fetch existing entries from the repository
-        List<ScheduleEntry> existingEntries = scheduleEntryRepository.findByTimetableIdAndStartTime(
-                newScheduleEntry.getTimetableId(), newScheduleStartTime);
-
-        if (existingEntries.isEmpty()) {
+        if (allEntries.isEmpty()) {
             return false;
         }
 
-        for (ScheduleEntry existingEntry : existingEntries) {
+        for (ScheduleEntry entry : allEntries) {
 
-            LocalTime existingScheduleStartTime = existingEntry.getStartTime();
-            long existingScheduleDuration = existingEntry.getDuration();
+            LocalTime existStartTime = entry.getStartTime();
+            long existDuration = entry.getDuration();
 
             // Check for overlap
             if (isOverlapping(newScheduleStartTime, newScheduleDuration,
-                    existingScheduleStartTime, existingScheduleDuration)) {
-                return true; // Conflict found
+                    existStartTime, existDuration)) {
+                return true; // Conflict
             }
         }
-        return false; // No conflicts found
+        return false; // No conflicts
     }
 
-    private boolean isOverlapping(LocalTime newEntryStart, long newEntryDuration,
-                                  LocalTime existingEntryStart, long existingEntryDuration) {
+    private boolean isOverlapping(LocalTime newStartTime, long newDuration,
+                                  LocalTime existStartTime, long existDuration) {
         // Calculate end times by adding duration to start times
-        LocalTime newEntryEndTime = newEntryStart.plusSeconds(newEntryDuration);
-        LocalTime existingEntryEndTime = existingEntryStart.plusSeconds(existingEntryDuration);
+        LocalTime newEntryEndTime = newStartTime.plusSeconds(newDuration); // startTime + duration = endTime
+        LocalTime existingEntryEndTime = existStartTime.plusSeconds(existDuration);
 
         // Check if the new entry overlaps with the existing entry
-        return newEntryStart.isBefore(existingEntryEndTime) && newEntryEndTime.isAfter(existingEntryStart);
+        return newStartTime.isBefore(existingEntryEndTime) && newEntryEndTime.isAfter(existStartTime);
     }
 
 }

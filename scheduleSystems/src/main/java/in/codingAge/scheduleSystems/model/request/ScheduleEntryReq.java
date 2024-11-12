@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 
 public class ScheduleEntryReq {
-    private String timetableId;
     private String className;
     private String instructor;
     private String location;

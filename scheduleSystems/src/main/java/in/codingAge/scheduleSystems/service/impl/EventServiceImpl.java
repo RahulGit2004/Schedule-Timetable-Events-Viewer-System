@@ -59,16 +59,16 @@ public class EventServiceImpl implements EventService {
 
     private static Event getEvent(EventRequest eventRequest) {
         Event event = new Event();
-        event.setBatchId(event.getBatchId());
-        event.setEventType(event.getEventType());
-        event.setCreatorId(event.getCreatorId());
+        event.setBatchId(eventRequest.getBatchId());
+        event.setEventType(eventRequest.getEventType());
+        event.setCreatorId(eventRequest.getCreatorId());
         event.setDate(eventRequest.getDate());
         event.setStartTime(eventRequest.getStartTime());
         event.setEndTime(eventRequest.getEndTime());
-        event.setDescription(event.getDescription());
-        event.setLocation(event.getLocation());
-        event.setTitle(event.getTitle());
-        event.setOrganizer(event.getOrganizer());
+        event.setDescription(eventRequest.getDescription());
+        event.setLocation(eventRequest.getLocation());
+        event.setTitle(eventRequest.getTitle());
+        event.setOrganizer(eventRequest.getOrganizer());
         event.setNotifyStudents(true);
         return event;
     }

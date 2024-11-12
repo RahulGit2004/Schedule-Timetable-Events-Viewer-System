@@ -13,4 +13,6 @@ public interface ScheduleEntryService {
     Boolean updateScheduleEntry(ScheduleEntry scheduleEntry);
 
     List<ScheduleEntry> getAll();
+
+    ScheduleEntry saveUpdates(ScheduleEntry scheduleEntry);
 }

@@ -52,20 +52,19 @@ public class TimeTableServiceImpl implements TimeTableService {
         timeTable.setBatchId(timeTableRequest.getBatchId());
         timeTable.setDate(timeTableRequest.getDate());
 
-        TimeTable newTimeTable = timeTableRepository.save(timeTable);
+
 
         boolean isSchedule = false;
-        // array initialize
-        if (newTimeTable.getScheduleEntries() == null) {
-            newTimeTable.setScheduleEntries(new ArrayList<>());
-        }
 
         for (ScheduleEntryReq scheduleEntryReq : timeTableRequest.getCreateScheduleReqList()) {
             // new time table id is set
-            scheduleEntryReq.setTimetableId(newTimeTable.getTimeTableId());
+//            scheduleEntryReq.setTimetableId(newTimeTable.getTimeTableId());
 
             ScheduleEntry scheduleEntry = scheduleEntryService.createScheduleEntry(scheduleEntryReq);
-
+            TimeTable newTimeTable = timeTableRepository.save(timeTable);
+            scheduleEntry.setTimetableId(newTimeTable.getTimeTableId());
+            scheduleEntryService.saveUpdates(scheduleEntry);
+            batch.getTimeTables().add(newTimeTable);
             // Add to the schedule entry in list
             newTimeTable.getScheduleEntries().add(scheduleEntry);
             isSchedule = true;
@@ -76,8 +75,8 @@ public class TimeTableServiceImpl implements TimeTableService {
         }
 
         // Saving updated time table in repository
-        timeTableRepository.save(newTimeTable);
-        batch.getTimeTables().add(newTimeTable);
+//        timeTableRepository.save(newTimeTable);
+         timeTableRepository.save(timeTable);
         batchService.saveUpdates(batch); // Saving updated data on batch with time table
 
         return true;

@@ -18,7 +18,4 @@ public class DailyScheduleRequest {
     private LocalDate date;
     private List<ScheduleEntryReq> events;
 
-    public DailyScheduleRequest() {
-        this.events = new ArrayList<>();
-    }
 }
