@@ -23,10 +23,12 @@ public class User {
     private String phoneNumber;
     private String emailId;
     private String userRole;
+    private List<String> batchesIdList;
     private List<Notification> notificationList;
 
     public User() {
         this.notificationList =new ArrayList<>();
+        this.batchesIdList =new ArrayList<>();
     }
 
 

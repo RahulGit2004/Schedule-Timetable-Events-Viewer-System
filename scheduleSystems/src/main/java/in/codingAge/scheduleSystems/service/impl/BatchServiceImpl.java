@@ -65,16 +65,23 @@ public class BatchServiceImpl implements BatchService {
             // checking correct admin id or not
             User user = userService.getUserByUserId(assignRequest.getCreatorId());
             if(user == null) {
-                throw new AppException("Invalid User ");
+                throw new AppException("Invalid User!!");
             } else {
                 // if user is admin
                 if(user.getUserRole().equalsIgnoreCase("admin")) {
                     // if no student assigned
                     boolean assigned = false;
                     for(String student: assignRequest.getStudentId()) {
+                        for (User existUser : batch.getUsers()) {
+                            if (existUser.getUserId().equals(student)) {
+                                throw new AppException("Student Is Already Assigned");
+                            }
+                        }
                         User newStudent = userService.getUserByUserId(student);
                         if(newStudent != null) {
+                          Batch newBatch = batchRepository.save(batch);
                             batch.getUsers().add(newStudent);
+                            newStudent.getBatchesIdList().add(newBatch.getBatchId());
                             userService.saveUpdates(newStudent); // saving each student in their repo
                             assigned = true; // at least one student assign
                         }

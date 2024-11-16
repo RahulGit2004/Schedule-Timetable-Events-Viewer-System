@@ -33,10 +33,6 @@ public class BatchController {
         return new ApiResponse<>(batchService.assignStudentsInBatch(assignRequest),HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/get/batchId")
-    public Batch b (@RequestParam String  batchId) {
-        return batchService.getBatchByBatchId(batchId);
-    }
 
     @PutMapping("/remove/students")
     public ApiResponse<Boolean> removeStudentsFromBatch(@RequestBody RemoveBatchRequest batchRequest) {

@@ -24,7 +24,6 @@ public class TimeTableController {
         return new ApiResponse<>(timeTableService.createTimeTableWithScheduleEntry(timeTableRequest), HttpStatus.ACCEPTED);
     }
 
-
     // todo not call this updateTimeTable api  {not worked yet}
     @PutMapping("/update")
     public ApiResponse<Boolean> updateTimeTable(@RequestBody UpdateTimeTableReq req) {

@@ -33,6 +33,12 @@ public class UserController {
     public List<User> getUsersByRole(@RequestParam String userRole){
         return userService.getUsersByRole(userRole);
     }
+
+    @GetMapping("/get/by/id")
+    public ApiResponse<User> getUserByUserId(@RequestParam String userId) {
+        return new ApiResponse<>(userService.getUserByUserId(userId),HttpStatus.ACCEPTED);
+    }
+
     // it gives filter data which students is not assigned in Batch {name of this method is not proper}
     @GetMapping("/all/students")
     public List<User> getAllStudents() {

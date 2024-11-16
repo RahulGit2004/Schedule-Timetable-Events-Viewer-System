@@ -66,7 +66,6 @@ public class DailyScheduleServiceImpl implements DailyScheduleService {
         if (!isScheduleCreated) {
             throw new AppException("No Entries for Schedule");
         }
-
         return true;
     }
 

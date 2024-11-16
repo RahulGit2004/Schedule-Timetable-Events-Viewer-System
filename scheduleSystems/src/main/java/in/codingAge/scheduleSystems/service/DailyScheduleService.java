@@ -12,4 +12,5 @@ public interface DailyScheduleService {
     List<DailySchedule> getSchedulesByBatchIdAndDate(String batchId, LocalDateTime date);
 
     List<DailySchedule> getSchedulesByBatchId(String batchId);
+
 }

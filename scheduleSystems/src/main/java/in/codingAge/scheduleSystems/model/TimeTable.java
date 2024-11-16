@@ -21,7 +21,6 @@ import java.util.List;
 public class TimeTable {
     @Id
     private String timeTableId;
-
     private String creatorId;
     private String batchId;
 

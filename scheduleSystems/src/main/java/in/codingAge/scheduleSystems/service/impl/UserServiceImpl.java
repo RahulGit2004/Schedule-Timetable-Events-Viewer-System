@@ -26,6 +26,13 @@ public class UserServiceImpl implements UserService {
     private NotificationService notificationService;
 
 
+    void Rahul(){} // concrete
+
+    String abc(){
+        return "";
+    }
+
+
     @Override
     public Boolean signUp(SignUpRequest signUpRequest) {
         // for unique phone number
